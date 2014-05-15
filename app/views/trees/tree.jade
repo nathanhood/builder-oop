@@ -1,0 +1,6 @@
+.tree(data-id=tree._id.toString(), class=tree.getClass())
+  if(tree.isHealthy)
+    button.grow Grow
+  if(tree.height > 24)
+    button.chop Chop
+  .height= tree.height

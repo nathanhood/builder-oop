@@ -7,6 +7,17 @@ html
     link(href='/css/buttons.css', rel='stylesheet')
     link(href='/less/app.css', rel='stylesheet')
   body
+    nav
+      h1 Builder 2
+      a.button.button-border(href='/') Home
+      a.button.button-border(href='/game') Game
+      a.button.button-border(href='/help') Help
+
+      .login
+        form
+          input#username(type='text', name='username', autofocus=true, placeholder='Username')
+          .button#login Login
+
     block content
 
     script(src='/js/vendor/jquery-2.1.1.js')

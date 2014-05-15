@@ -1,0 +1,10 @@
+button.button.button-action#plant Plant
+button.button.button-warning#getForest Get Forest
+#user(data-id=user._id.toString())= user.username
+.wood Wood:
+  #wood= user.wood
+.cash Cash:
+  #cash $#{user.cash}
+form
+  input.woodqty(type='text', name='woodQty', placeholder='Qty')
+  button.button.button-action#sell Sell
