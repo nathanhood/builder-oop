@@ -16,20 +16,50 @@ class Tree{
     trees.save(this, ()=>fn());
   }
 
+  // toFixed(number){
+  //   return Math.floor(number)
+  // }
+
   grow(){
-    this.height += _.random(0,3);
-    this.isHealthy = _.random(0, 200) !== 69;
+    if(!this.isAdult){
+      this.height += _.random(0,2);
+    }else if(this.isAdult){
+      var max = this.height * 0.10;
+      this.height += _.random(0,max);
+    }
+
+    var min = this.isAdult ? 200 - ((this.height/12)*0.10) : 200;
+    min = min < 10 ? 10 : min;
+
+    var rnd = _.random(0, min, true);
+    this.isHealthy = rnd > 1;
   }
 
-  getClass(){ //instance method. for dynamically adding class to jade file
+  get isGrowable(){
+    return this.isHealthy && !this.isBeanStalk;
+  }
+
+  get isBeanStalk(){
+    return (this.height / 12) >= 10000;
+  }
+
+  get isAdult(){
+    return this.height >= 48;
+  }
+
+  get isChoppable(){
+    return this.isAdult && this.isHealthy && !this.isBeanStalk;
+  }
+
+  get classes(){ //instance method. for dynamically adding class to jade file
     var classes = [];
     if(this.height === 0){
       classes.push('seed');
-    }else if(this.height < 12){
-      classes.push('sapling');
     }else if(this.height < 24){
+      classes.push('sapling');
+    }else if(!this.isAdult){
       classes.push('treenager');
-    }else{
+    }else if(this.isAdult){
       classes.push('adult');
     }
 
@@ -42,6 +72,10 @@ class Tree{
       classes.push('dead');
     }else{
       classes.push('alive');
+    }
+
+    if(this.isBeanStalk){
+      classes.push('beanstalk');
     }
 
     return classes.join(' ');

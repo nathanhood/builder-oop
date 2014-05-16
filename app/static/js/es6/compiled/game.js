@@ -1,3 +1,21 @@
+var audioChop,
+    audioBeanStalk,
+    audioDeadTree;
+function ajax(url, verb) {
+  'use strict';
+  var data = arguments[2] !== (void 0) ? arguments[2] : {};
+  var success = arguments[3] !== (void 0) ? arguments[3] : (function(r) {
+    return console.log(r);
+  });
+  var dataType = arguments[4] !== (void 0) ? arguments[4] : 'html';
+  $.ajax({
+    url: url,
+    type: verb,
+    dataType: dataType,
+    data: data,
+    success: success
+  });
+}
 (function() {
   'use strict';
   $(document).ready(init);
@@ -8,6 +26,22 @@
     $('#forest').on('click', '.grow', grow);
     $('#forest').on('click', '.chop', chop);
     $('#dashboard').on('click', '#sell', sell);
+    $('#dashboard').on('click', '#purchase-autogrow', purchaseAutoGrow);
+    preloadAssets();
+  }
+  function purchaseAutoGrow() {
+    var userId = $('#user').attr('data-id');
+    ajax(("/users/" + userId + "/purchase/autogrow"), 'PUT', null, (function(html) {
+      $('#dashboard').empty().append(html);
+    }));
+  }
+  function preloadAssets() {
+    audioChop = $('<audio>')[0];
+    audioChop.src = '/audios/treefall.mp3';
+    audioBeanStalk = $('<audio>')[0];
+    audioBeanStalk.src = '/audios/beanstalk.mp3';
+    audioDeadTree = $('<audio>')[0];
+    audioDeadTree.src = '/audios/deadTree.mp3';
   }
   function sell(event) {
     var userId = $('#user').attr('data-id');
@@ -18,6 +52,7 @@
     event.preventDefault();
   }
   function chop() {
+    audioChop.play();
     var tree = $(this).closest('.tree');
     var treeId = tree.attr('data-id');
     var userId = $('#user').attr('data-id');
@@ -33,6 +68,12 @@
     var treeId = tree.attr('data-id');
     ajax(("/trees/" + treeId + "/grow"), 'PUT', null, (function(html) {
       tree.replaceWith(html);
+      if ($(html).hasClass('beanstalk')) {
+        audioBeanStalk.play();
+      }
+      if ($(html).hasClass('dead')) {
+        audioDeadTree.play();
+      }
     }));
   }
   function forest() {
@@ -52,20 +93,6 @@
     ajax('/login', 'POST', {username: username}, (function(html) {
       $('#dashboard').empty().append(html);
     }));
-  }
-  function ajax(url, verb) {
-    var data = arguments[2] !== (void 0) ? arguments[2] : {};
-    var success = arguments[3] !== (void 0) ? arguments[3] : (function(r) {
-      return console.log(r);
-    });
-    var dataType = arguments[4] !== (void 0) ? arguments[4] : 'html';
-    $.ajax({
-      url: url,
-      type: verb,
-      dataType: dataType,
-      data: data,
-      success: success
-    });
   }
 })();
 

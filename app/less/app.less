@@ -6,10 +6,10 @@ html, body {
 }
 
 body {
-  background-image:url('../img/fogforest.jpg');
-  background-size: cover;
+  background-image:url('../img/dark_fish_skin.png');
+  // background-size: cover;
   background-position: fixed;
-  background-repeat: no-repeat;
+  // background-repeat: no-repeat;
 }
 
 nav {
@@ -66,44 +66,73 @@ nav h1 {
   float: right;
   margin-right: 45px;
   margin-top: 35px;
-  font-size: 30px;
+  font-size: 25px;
+  width: 250px;
 }
 
-#user, #wood, #cash {
+#achievements {
+  float: right;
+  margin-top: 30px;
+  width: 250px;
+}
+
+#wood, #cash {
   display: inline-block;
+  margin-left: 10px;
+  font-size: 22px;
+  max-width: 150px;
+}
+
+.cash {
+  width: 240px;
+}
+
+#user {
+  display: block;
   float: right;
   font-size: 30px;
+  width: 250px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: white;
 }
 
 #forest {
-  width: 900px;
-  margin-left: auto;
+  width: 800px;
+  height: 100%;
+  margin-left: 50px;
   margin-right: auto;
-  margin-top: 30px;
+  margin-top: 45px;
+}
+
+#getForest {
+  margin-left: 10px;
 }
 
 .tree {
   float: left;
-  margin: 10px;
+  margin: 22px 10px;
   width: 90px;
   height: 170px;
   background-size: contain;
   background-repeat: no-repeat;
   display: inline-block;
-  border: 2px solid black;
+  border: 1px solid black;
+  border-radius: 8px;
   text-align: center
 }
 
 .grow {
   background-color: rgba(154, 153, 153, 0.21);
+  position: relative;
+  top: -38px;
 }
 
 .height {
   position: relative;
+  top: -12px;
   text-align: center;
-  top: 5px;
-  font-weight: bold;
-  font-size: 1.7em;
+  font-size: 1.3em;
 }
 
 .chop {
@@ -117,6 +146,21 @@ nav h1 {
 
 #sell {
   margin-left: 10px;
+}
+
+#autogrow {
+  background-size: cover;
+  width: 60px;
+  height: 50px;
+  background-repeat: no-repeat;
+}
+
+#autogrow:hover {
+  border: 2px solid green;
+}
+
+.on {
+  background-color: white;
 }
 
 .seed {
@@ -141,4 +185,8 @@ nav h1 {
 
 .chopped {
   background-image:url('../img/tree_stump.png');
+}
+
+.beanstalk {
+  background-image:url('../img/beanstalk.png');
 }
