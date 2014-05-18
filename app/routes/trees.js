@@ -1,14 +1,23 @@
 'use strict';
 
 var traceur = require('traceur');
+var _ = require('lodash');
 var Tree = traceur.require(__dirname + '/../models/tree.js'); //bringing in User Class
+var User = traceur.require(__dirname + '/../models/user.js');
 var users = global.nss.db.collection('users');
 
 exports.plant = (req, res)=>{
-  Tree.plant(req.body.userId, tree=>{
-    res.render('trees/tree', {tree:tree});
+  Tree.findAllByUserId(req.body.userId, forest=>{
+    var totalTrees = _.size(forest);
+
+    if(totalTrees <= 55){
+      Tree.plant(req.body.userId, tree=>{
+        res.render('trees/tree', {tree:tree});
+      });
+    }
   });
 };
+
 
 exports.forest = (req, res)=>{
   Tree.findAllByUserId(req.query.userId, forest=>{
@@ -25,18 +34,35 @@ exports.grow = (req, res)=>{
   });
 };
 
+
+exports.autoGrow = (req, res)=>{
+  Tree.findByTreeId(req.params.treeId, tree=>{
+    User.findByUserId(tree.userId, user=>{
+      var treeHeight = tree.height / 12;
+      if(treeHeight < req.body.chopHeight){
+        tree.grow();
+        tree.save(()=>{
+          res.render('trees/tree', {tree:tree});
+        });
+      }else if(treeHeight >= req.body.chopHeight){
+        tree.chop(user);
+        user.save(()=>{
+          tree.save(()=>{
+            res.render('trees/tree', {tree:tree});
+          });
+        });
+      }
+    });
+  });
+};
+
+
 exports.chop = (req, res)=>{
   Tree.findByTreeId(req.params.treeId, tree=>{
     users.findOne({_id:tree.userId}, (err, user)=>{
-      var wood = tree.height / 2;
-      user.wood += wood;
 
+      tree.chop(user);
       users.save(user, ()=>{
-
-        tree.isHealthy = false;
-        tree.isChopped = true;
-        tree.height = 0;
-
         tree.save(()=>{
           res.render('trees/tree', {tree:tree});
         });

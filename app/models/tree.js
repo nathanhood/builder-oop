@@ -16,9 +16,16 @@ class Tree{
     trees.save(this, ()=>fn());
   }
 
-  // toFixed(number){
-  //   return Math.floor(number)
-  // }
+
+  chop(user){
+    var wood = this.height / 2;
+    user.wood += wood;
+
+    this.isHealthy = false;
+    this.isChopped = true;
+    this.height = 0;
+  }
+
 
   grow(){
     if(!this.isAdult){
@@ -34,6 +41,8 @@ class Tree{
     var rnd = _.random(0, min, true);
     this.isHealthy = rnd > 1;
   }
+
+
 
   get isGrowable(){
     return this.isHealthy && !this.isBeanStalk;

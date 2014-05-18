@@ -10,25 +10,12 @@ class Item{
       this.cost = 50000;
       this.image = '/img/autogrow.gif';
       break;
+    case 'autoseed':
+        this.cost = 75000;
+        this.image = '/img/acorn.png';
+        break;
     }
   }
-
-  // static findItemsById(itemIds, fn){
-  //   // var itemsArray = [];
-  //
-  //   itemIds.forEach(itemId=>{
-  //     itemId = Mongo.ObjectID(itemId);
-  //
-  //     items.findOne({_id:itemId}, (err, obj)=>{
-  //       var item = _.create(Item.prototype, obj);
-  //       // itemsArray.push(item);
-  //       // console.log(itemsArray);
-  //       fn(item);
-  //     });
-  //   });
-  //
-  // }
-
 
 }
 

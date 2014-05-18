@@ -26,12 +26,15 @@ function load(app, fn){
 
   app.post('/login', dbg, users.login);
   app.get('/dashboard/:userId', dbg, users.dashboard);
+  app.get('/items', dbg, users.items);
   app.post('/sell/:userId', dbg, users.sell);
   app.put('/users/:userId/purchase/:item', dbg, users.purchase);
 
   app.post('/trees/plant', dbg, trees.plant);
+  app.post('/trees/autoseed', dbg, trees.plant);
   app.get('/trees', dbg, trees.forest);
   app.put('/trees/:treeId/grow', dbg, trees.grow);
+  app.put('/trees/:treeId/autogrow', dbg, trees.autoGrow);
   app.put('/trees/:treeId/chop', dbg, trees.chop);
   // app.put('/trees/:treeId/dashboard', dbg, users.updateDashboard);
 

@@ -33,10 +33,15 @@ exports.purchase = (req, res)=>{
   User.findByUserId(req.params.userId, user=>{
     var item = new Item(`${req.params.item}`);
       user.purchase(item);
-      console.log(item);
       user.save(()=>{
-        console.log(user);
         res.render('users/dashboard', {user:user});
       });
+  });
+};
+
+exports.items = (req, res)=>{
+  var userId = req.query.userId;
+  User.findByUserId(userId, (user)=>{
+    res.render('users/items', {user:user});
   });
 };

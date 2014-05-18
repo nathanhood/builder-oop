@@ -21,14 +21,23 @@ function ajax(url, verb, data={}, success=r=>console.log(r), dataType='html'){//
     $('#forest').on('click', '.chop', chop);
     $('#dashboard').on('click', '#sell', sell);
     $('#dashboard').on('click', '#purchase-autogrow', purchaseAutoGrow);
+    $('#dashboard').on('click', '#purchase-autoseed', purchaseAutoSeed);
     preloadAssets();
   }
 
+  function purchaseAutoSeed(event){
+    var userId = $('#user').attr('data-id');
+    ajax(`/users/${userId}/purchase/autoseed`, 'PUT', null, html=>{
+      $('#dashboard').empty().append(html);
+      items();
+    });
+  }
 
   function purchaseAutoGrow(){
     var userId = $('#user').attr('data-id');
     ajax(`/users/${userId}/purchase/autogrow`, 'PUT', null, html=>{
       $('#dashboard').empty().append(html);
+      items();
     });
   }
 
@@ -93,10 +102,19 @@ function ajax(url, verb, data={}, success=r=>console.log(r), dataType='html'){//
     });
   }
 
+  function items(){
+    var userId = $('#user').attr('data-id');
+    ajax(`/items?userId=${userId}`, 'GET', null, html=>{
+      $('#items').empty().append(html);
+    });
+  }
+
   function login(){
     var username = $('#username').val();
     ajax('/login', 'POST', {username:username}, html=>{
       $('#dashboard').empty().append(html);
+      forest();
+      items();
     });
   }
 
