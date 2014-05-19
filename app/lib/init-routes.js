@@ -36,6 +36,7 @@ function load(app, fn){
   app.put('/trees/:treeId/grow', dbg, trees.grow);
   app.put('/trees/:treeId/autogrow', dbg, trees.autoGrow);
   app.put('/trees/:treeId/chop', dbg, trees.chop);
+  app.delete('/trees/:userId/autoroot', dbg, trees.autoRoot);
   // app.put('/trees/:treeId/dashboard', dbg, users.updateDashboard);
 
   console.log('Routes Loaded');

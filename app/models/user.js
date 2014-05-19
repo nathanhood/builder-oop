@@ -36,6 +36,11 @@ class User{
     return this.cash >= 50000 && !isPresent;
   }
 
+  get isAutoGrowPurchased(){
+    var isPresent = _(this.items).any({'type': 'autogrow'});
+    return isPresent;
+  }
+
   get isAutoSeedAvailable(){
     var isPresent = _(this.items).any({'type': 'autoseed'});
     return this.cash >= 75000 && !isPresent;
@@ -43,7 +48,7 @@ class User{
 
   get isAutoRootAvailable(){
     var isPresent = _(this.items).any({'type': 'autoroot'});
-    return this.cash >= 75000 && !isPresent;
+    return this.cash >= 85000 && !isPresent;
   }
 
 

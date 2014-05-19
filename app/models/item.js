@@ -14,6 +14,9 @@ class Item{
         this.cost = 75000;
         this.image = '/img/acorn.png';
         break;
+    case 'autoroot':
+        this.cost = 85000;
+        this.image = '/img/autoroot.png';
     }
   }
 

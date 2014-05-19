@@ -22,7 +22,16 @@ function ajax(url, verb, data={}, success=r=>console.log(r), dataType='html'){//
     $('#dashboard').on('click', '#sell', sell);
     $('#dashboard').on('click', '#purchase-autogrow', purchaseAutoGrow);
     $('#dashboard').on('click', '#purchase-autoseed', purchaseAutoSeed);
+    $('#dashboard').on('click', '#purchase-autoroot', purchaseAutoRoot);
     preloadAssets();
+  }
+
+  function purchaseAutoRoot(){
+    var userId = $('#user').attr('data-id');
+    ajax(`/users/${userId}/purchase/autoroot`, 'PUT', null, html=>{
+      $('#dashboard').empty().append(html);
+      items();
+    });
   }
 
   function purchaseAutoSeed(event){

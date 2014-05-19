@@ -91,6 +91,15 @@ class Tree{
   }
 
 
+  static removeDeadOrStump(userId, fn){
+    userId = Mongo.ObjectID(userId);
+    trees.remove({'userId':userId, 'isHealthy':false, 'isBeanStalk':false}, (err, count)=>{
+      trees.remove({'userId':userId, 'isChopped':true, 'isBeanStalk':false}, (err, count)=>{
+        fn();
+      });
+    });
+  }
+
   static findByTreeId(treeId, fn){
     treeId = Mongo.ObjectID(treeId);
     trees.findOne({_id:treeId}, (err, obj)=>{

@@ -1,7 +1,8 @@
 .slider
-  h4 Chop Height
-  #range-slider
-  input#chop-height
+  if(user.isAutoGrowPurchased)
+    h4 Chop Height
+    #range-slider
+    input#chop-height
 #achievements
   each item in user.items
     case item.type
@@ -9,3 +10,5 @@
         include ../items/autogrow
       when 'autoseed'
         include ../items/autoseed
+      when 'autoroot'
+        include ../items/autoroot

@@ -28,7 +28,15 @@ function ajax(url, verb) {
     $('#dashboard').on('click', '#sell', sell);
     $('#dashboard').on('click', '#purchase-autogrow', purchaseAutoGrow);
     $('#dashboard').on('click', '#purchase-autoseed', purchaseAutoSeed);
+    $('#dashboard').on('click', '#purchase-autoroot', purchaseAutoRoot);
     preloadAssets();
+  }
+  function purchaseAutoRoot() {
+    var userId = $('#user').attr('data-id');
+    ajax(("/users/" + userId + "/purchase/autoroot"), 'PUT', null, (function(html) {
+      $('#dashboard').empty().append(html);
+      items();
+    }));
   }
   function purchaseAutoSeed(event) {
     var userId = $('#user').attr('data-id');

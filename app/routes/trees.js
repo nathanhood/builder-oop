@@ -34,6 +34,13 @@ exports.grow = (req, res)=>{
   });
 };
 
+exports.autoRoot = (req, res)=>{
+  Tree.removeDeadOrStump(req.params.userId, ()=>{
+    Tree.findAllByUserId(req.params.userId, forest=>{
+      res.render('trees/forest', {trees:forest});
+    });
+  });
+};
 
 exports.autoGrow = (req, res)=>{
   Tree.findByTreeId(req.params.treeId, tree=>{
